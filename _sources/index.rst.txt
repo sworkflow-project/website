@@ -1,44 +1,57 @@
-.. sworkflow documentation master file, created by
-   sphinx-quickstart on Thu Jun 15 16:42:15 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+==========================================
+sworkflow - Streamlined Kernel Compilation
+==========================================
 
-SW - Streamlined Kernel Compilation tool
-=========================================
+**sworkflow** (sw) is an automated kernel compilation tool designed to
+streamline the process of compiling the Linux kernel and significantly
+reduce the overhead involved in setting up the development environment.
 
-sworkflow is an auto kernel compilation tool designed to streamline the process of compiling the Linux kernel and significantly reduce the overhead involved in setting up the development environment.
+Features
+========
 
-Using sworkflow is simple and straightforward. The tool comes with a user-friendly documentation that guides developers through the setup process and kernel compilation.
+- Device-specific build configurations
+- Cross-compiler management for ARM64/ARM32/x86
+- Clang/LLVM build support
+- DTBO image generation
+- AnyKernel3 packaging integration
+- Interactive config generation
 
-For more information, check:
-
-.. toctree::
-   :maxdepth: 1
-
-   content/installorremove
-
-sw code doc
+Quick Start
 ===========
 
-Check out our code documentation.
+Install::
+
+    git clone https://github.com/sworkflow-project/sworkflow.git
+    cd sworkflow
+    make install
+
+Build a kernel::
+
+    cd /path/to/kernel-source
+    sw build mainline
+
+Documentation
+=============
 
 .. toctree::
-   :maxdepth: 1
-   :caption: Code documentation:
+   :maxdepth: 2
+   :caption: Getting Started
+
+   content/installorremove
+   tutorials/setup
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Reference
 
    content/project_structure
 
-sw Tutorials
-============
+Links
+=====
 
-Check out our tutorials to see how you can use sw.
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Tutorials:
-
-   tutorials/setup
-
+- `GitHub Repository <https://github.com/sworkflow-project/sworkflow>`_
+- `Issue Tracker <https://github.com/sworkflow-project/issues/issues>`_
+- `Releases <https://github.com/sworkflow-project/sworkflow/releases>`_
 
 Indices and Tables
 ==================

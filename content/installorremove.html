@@ -1,27 +1,27 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Install or Remove sw &#8212; sw  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <title>Install or Remove sw &#8212; sworkflow 2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=60dbed4a"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Project Structure" href="project_structure.html" />
-    <link rel="prev" title="SW - Streamlined Kernel Compilation tool" href="../index.html" />
+    <link rel="next" title="How to Setup sworkflow" href="../tutorials/setup.html" />
+    <link rel="prev" title="sworkflow - Streamlined Kernel Compilation" href="../index.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -34,40 +34,91 @@
           <div class="body" role="main">
             
   <section id="install-or-remove-sw">
-<h1>Install or Remove <cite>sw</cite><a class="headerlink" href="#install-or-remove-sw" title="Permalink to this headline">¶</a></h1>
-<section id="package-dependencies">
-<h2>Package Dependencies<a class="headerlink" href="#package-dependencies" title="Permalink to this headline">¶</a></h2>
-<p>We currently support <em>debian</em> for automatic dependencies
-installation. These are the current dependencies for <em>Debian</em>:</p>
-<p>If you want to build the documentation as it is displayed on our website you
-also need this pip package:</p>
-<blockquote>
-<div><p>sphinx-book-theme</p>
-</div></blockquote>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Our base support is Ubuntu LTS. i.e., the dependency packages installed in
-your system should be at least as new as those present in Ubuntu LTS.</p>
+<h1>Install or Remove <code class="docutils literal notranslate"><span class="pre">sw</span></code><a class="headerlink" href="#install-or-remove-sw" title="Link to this heading">¶</a></h1>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">¶</a></h2>
+<p><strong>Required:</strong></p>
+<ul class="simple">
+<li><p>bash (&gt;= 4.0)</p></li>
+<li><p>python3</p></li>
+<li><p>git</p></li>
+<li><p>make</p></li>
+</ul>
+<p><strong>Recommended (for kernel building):</strong></p>
+<ul class="simple">
+<li><p>build-essential</p></li>
+<li><p>bc, flex, bison</p></li>
+<li><p>libssl-dev, libelf-dev</p></li>
+</ul>
+<p><strong>Optional:</strong></p>
+<ul class="simple">
+<li><p>clang (for LLVM builds)</p></li>
+<li><p>device-tree-compiler (for DTBO)</p></li>
+</ul>
+<p>On Debian/Ubuntu:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">bash</span> <span class="n">python3</span> <span class="n">git</span> <span class="n">make</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">bc</span> <span class="n">flex</span> <span class="n">bison</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libelf</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
 </div>
 </section>
 <section id="install">
-<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
-<section id="manual-install">
-<h3>Manual install<a class="headerlink" href="#manual-install" title="Permalink to this headline">¶</a></h3>
-<p>In the sw’s directory, type:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">install</span>
+<h2>Install<a class="headerlink" href="#install" title="Link to this heading">¶</a></h2>
+<section id="from-debian-package-recommended">
+<h3>From Debian Package (Recommended)<a class="headerlink" href="#from-debian-package-recommended" title="Link to this heading">¶</a></h3>
+<p>Download the latest <code class="docutils literal notranslate"><span class="pre">.deb</span></code> from <a class="reference external" href="https://github.com/sworkflow-project/sworkflow/releases">Releases</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dpkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">sworkflow_</span><span class="o">*.</span><span class="n">deb</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">f</span>  <span class="c1"># Install dependencies if needed</span>
 </pre></div>
 </div>
-<p>This command will install <cite>sw</cite> and append the following
-lines at the end of your <cite>.bashrc</cite>.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># sw
-PATH=$HOME/sworkflow/bin:$PATH # sw
+</section>
+<section id="from-source-user-install">
+<h3>From Source (User Install)<a class="headerlink" href="#from-source-user-install" title="Link to this heading">¶</a></h3>
+<p>Installs to <code class="docutils literal notranslate"><span class="pre">~/.local/</span></code> - no root required:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">sworkflow</span><span class="o">-</span><span class="n">project</span><span class="o">/</span><span class="n">sworkflow</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">sworkflow</span>
+<span class="n">make</span> <span class="n">install</span>
 </pre></div>
 </div>
-<p>If you use another shell (<cite>ksh</cite>, for example), you will need to manually add
-the path to <cite>sw</cite> to <cite>PATH</cite> environment variable.</p>
-<p>To check if the installations was ok, open another terminal and type:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sw</span> <span class="n">help</span>
+<p>Ensure <code class="docutils literal notranslate"><span class="pre">~/.local/bin</span></code> is in your PATH:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="s2">&quot;$HOME/.local/bin:$PATH&quot;</span>
+</pre></div>
+</div>
+<p>Add this line to your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> to make it permanent.</p>
+</section>
+<section id="from-source-system-wide">
+<h3>From Source (System-wide)<a class="headerlink" href="#from-source-system-wide" title="Link to this heading">¶</a></h3>
+<p>Installs to <code class="docutils literal notranslate"><span class="pre">/usr/</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">sworkflow</span><span class="o">-</span><span class="n">project</span><span class="o">/</span><span class="n">sworkflow</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">sworkflow</span>
+<span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</section>
+<section id="verify-installation">
+<h3>Verify Installation<a class="headerlink" href="#verify-installation" title="Link to this heading">¶</a></h3>
+<p>To check if the installation was successful:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sw</span> <span class="n">version</span>
+<span class="n">sw</span> <span class="n">help</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="uninstall">
+<h2>Uninstall<a class="headerlink" href="#uninstall" title="Link to this heading">¶</a></h2>
+<section id="user-installation">
+<h3>User Installation<a class="headerlink" href="#user-installation" title="Link to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">uninstall</span>
+</pre></div>
+</div>
+</section>
+<section id="system-installation">
+<h3>System Installation<a class="headerlink" href="#system-installation" title="Link to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">make</span> <span class="n">uninstall</span>
+</pre></div>
+</div>
+</section>
+<section id="debian-package">
+<h3>Debian Package<a class="headerlink" href="#debian-package" title="Link to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">remove</span> <span class="n">sworkflow</span>
 </pre></div>
 </div>
 </section>
@@ -79,9 +130,9 @@ the path to <cite>sw</cite> to <cite>PATH</cite> environment variable.</p>
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">sw</a></h1>
+<h1 class="logo"><a href="../index.html">sworkflow</a></h1>
 
 
 
@@ -90,38 +141,40 @@ the path to <cite>sw</cite> to <cite>PATH</cite> environment variable.</p>
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Install or Remove <cite>sw</cite></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Install or Remove <code class="docutils literal notranslate"><span class="pre">sw</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uninstall">Uninstall</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Code documentation:</span></p>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/setup.html">How to Setup sworkflow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project Structure</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Tutorials:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/setup.html">How to setup sworkflow</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../index.html" title="previous chapter">SW - Streamlined Kernel Compilation tool</a></li>
-      <li>Next: <a href="project_structure.html" title="next chapter">Project Structure</a></li>
+      <li>Previous: <a href="../index.html" title="previous chapter">sworkflow - Streamlined Kernel Compilation</a></li>
+      <li>Next: <a href="../tutorials/setup.html" title="next chapter">How to Setup sworkflow</a></li>
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
 
 
 
@@ -135,11 +188,11 @@ the path to <cite>sw</cite> to <cite>PATH</cite> environment variable.</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2023, Saalim Quadri.
+      &#169;2019-2024, Saalim Quadri.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.0.4</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="../_sources/content/installorremove.rst.txt"

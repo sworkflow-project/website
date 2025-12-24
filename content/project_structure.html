@@ -1,27 +1,26 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Project Structure &#8212; sw  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <title>Project Structure &#8212; sworkflow 2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=60dbed4a"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="How to setup sworkflow" href="../tutorials/setup.html" />
-    <link rel="prev" title="Install or Remove sw" href="installorremove.html" />
+    <link rel="prev" title="How to Setup sworkflow" href="../tutorials/setup.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -34,7 +33,93 @@
           <div class="body" role="main">
             
   <section id="project-structure">
-<h1>Project Structure<a class="headerlink" href="#project-structure" title="Permalink to this headline">¶</a></h1>
+<h1>Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading">¶</a></h1>
+<section id="directory-layout">
+<h2>Directory Layout<a class="headerlink" href="#directory-layout" title="Link to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sworkflow/
+├── sw                    # Main executable
+├── src/                  # Source modules
+│   ├── build.sh          # Kernel build logic
+│   ├── build_vars.sh     # Build variables
+│   ├── init.sh           # Config generation
+│   ├── help.sh           # Help command
+│   ├── version.sh        # Version command
+│   ├── sw_functions.sh   # Utility functions
+│   ├── sw_color.sh       # Terminal colors
+│   └── sw_package.sh     # Packaging (WIP)
+├── configs/              # Device configurations
+├── utils/                # Python utilities
+│   └── mkdtboimg.py      # DTBO image creator
+├── man/                  # Man pages
+│   └── sw.1              # Main man page
+├── debian/               # Debian packaging
+├── docs/                 # Sphinx documentation
+├── tests/                # Test scripts
+├── Makefile              # Build system
+├── setup.sh              # Legacy installer
+└── README.md             # Project readme
+</pre></div>
+</div>
+</section>
+<section id="source-modules">
+<h2>Source Modules<a class="headerlink" href="#source-modules" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt><strong>sw</strong></dt><dd><p>Main entry point. Handles command routing and path detection.</p>
+</dd>
+<dt><strong>src/build.sh</strong></dt><dd><p>Core kernel build logic. Handles:</p>
+<ul class="simple">
+<li><p>Config loading and validation</p></li>
+<li><p>Cross-compiler setup</p></li>
+<li><p>Kernel compilation with make</p></li>
+<li><p>Module installation</p></li>
+<li><p>DTBO generation</p></li>
+<li><p>AnyKernel3 packaging</p></li>
+</ul>
+</dd>
+<dt><strong>src/init.sh</strong></dt><dd><p>Interactive configuration generator. Creates device-specific
+config files with user input.</p>
+</dd>
+<dt><strong>src/sw_functions.sh</strong></dt><dd><p>Shared utility functions:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">is_kernel_root()</span></code> - Check if directory is a kernel tree</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is_kernel_image_present()</span></code> - Check for compiled kernel</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">log_info()</span></code>, <code class="docutils literal notranslate"><span class="pre">log_error()</span></code> - Logging functions</p></li>
+</ul>
+</dd>
+<dt><strong>src/sw_color.sh</strong></dt><dd><p>Terminal color definitions for output formatting.</p>
+</dd>
+</dl>
+</section>
+<section id="installation-paths">
+<h2>Installation Paths<a class="headerlink" href="#installation-paths" title="Link to this heading">¶</a></h2>
+<p><strong>System Installation</strong> (<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">make</span> <span class="pre">install</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">sw</span>                    <span class="c1"># Executable</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">sworkflow</span><span class="o">/</span><span class="n">src</span><span class="o">/</span>      <span class="c1"># Source modules</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">sworkflow</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span>    <span class="c1"># Python utilities</span>
+<span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">sworkflow</span><span class="o">/</span>                <span class="c1"># Device configs</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">man1</span><span class="o">/</span><span class="n">sw</span><span class="mf">.1</span>       <span class="c1"># Man page</span>
+</pre></div>
+</div>
+<p><strong>User Installation</strong> (<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~/.</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">sw</span>                <span class="c1"># Executable</span>
+<span class="o">~/.</span><span class="n">local</span><span class="o">/</span><span class="n">sw</span><span class="o">/</span><span class="n">src</span><span class="o">/</span>               <span class="c1"># Source modules</span>
+<span class="o">~/.</span><span class="n">local</span><span class="o">/</span><span class="n">sw</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span>             <span class="c1"># Python utilities</span>
+<span class="o">~/.</span><span class="n">local</span><span class="o">/</span><span class="n">sw</span><span class="o">/</span><span class="n">configs</span><span class="o">/</span>           <span class="c1"># Device configs</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-files">
+<h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Link to this heading">¶</a></h2>
+<p>Device configurations are shell scripts named <code class="docutils literal notranslate"><span class="pre">sworkflow.&lt;device&gt;.config</span></code>.</p>
+<p>They are searched in order:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/etc/sworkflow/</span></code> (system)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~/.local/sw/configs/</span></code> (user)</p></li>
+<li><p>Current directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">./configs/</span></code> subdirectory</p></li>
+</ol>
+<p>See <code class="docutils literal notranslate"><span class="pre">configs/sworkflow_template.config</span></code> for available variables.</p>
+</section>
 </section>
 
 
@@ -42,9 +127,9 @@
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">sw</a></h1>
+<h1 class="logo"><a href="../index.html">sworkflow</a></h1>
 
 
 
@@ -53,38 +138,40 @@
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="installorremove.html">Install or Remove <cite>sw</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="installorremove.html">Install or Remove <code class="docutils literal notranslate"><span class="pre">sw</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/setup.html">How to Setup sworkflow</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Code documentation:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Project Structure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Project Structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#directory-layout">Directory Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#source-modules">Source Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-paths">Installation Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-files">Configuration Files</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Tutorials:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/setup.html">How to setup sworkflow</a></li>
+</li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="installorremove.html" title="previous chapter">Install or Remove <cite>sw</cite></a></li>
-      <li>Next: <a href="../tutorials/setup.html" title="next chapter">How to setup sworkflow</a></li>
+      <li>Previous: <a href="../tutorials/setup.html" title="previous chapter">How to Setup sworkflow</a></li>
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
 
 
 
@@ -98,11 +185,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2023, Saalim Quadri.
+      &#169;2019-2024, Saalim Quadri.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.0.4</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="../_sources/content/project_structure.rst.txt"

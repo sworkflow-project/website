@@ -1,26 +1,27 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>How to setup sworkflow &#8212; sw  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <title>How to Setup sworkflow &#8212; sworkflow 2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=60dbed4a"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Project Structure" href="../content/project_structure.html" />
+    <link rel="next" title="Project Structure" href="../content/project_structure.html" />
+    <link rel="prev" title="Install or Remove sw" href="../content/installorremove.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -33,40 +34,121 @@
           <div class="body" role="main">
             
   <section id="how-to-setup-sworkflow">
-<h1>How to setup sworkflow<a class="headerlink" href="#how-to-setup-sworkflow" title="Permalink to this headline">¶</a></h1>
-<div class="contents local topic" id="contents">
+<h1>How to Setup sworkflow<a class="headerlink" href="#how-to-setup-sworkflow" title="Link to this heading">¶</a></h1>
+<nav class="contents local" id="contents">
 <span id="setup-tutorial"></span><ul class="simple">
-<li><p><a class="reference internal" href="#downloading-kw" id="id1">Downloading kw</a></p></li>
-<li><p><a class="reference internal" href="#installing-kw" id="id2">Installing kw</a></p></li>
+<li><p><a class="reference internal" href="#downloading-sworkflow" id="id1">Downloading sworkflow</a></p></li>
+<li><p><a class="reference internal" href="#installing-sworkflow" id="id2">Installing sworkflow</a></p></li>
+<li><p><a class="reference internal" href="#using-sworkflow" id="id3">Using sworkflow</a></p></li>
+<li><p><a class="reference internal" href="#available-commands" id="id4">Available Commands</a></p></li>
+<li><p><a class="reference internal" href="#getting-help" id="id5">Getting Help</a></p></li>
 </ul>
-</div>
-<section id="downloading-kw">
-<h2>Downloading kw<a class="headerlink" href="#downloading-kw" title="Permalink to this headline">¶</a></h2>
-<p>First of all, let’s download <strong>sw</strong>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/sworkflow/sworkflow.git</span>
+</nav>
+<section id="downloading-sworkflow">
+<h2>Downloading sworkflow<a class="headerlink" href="#downloading-sworkflow" title="Link to this heading">¶</a></h2>
+<p>First, clone the repository:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/sworkflow-project/sworkflow.git</span>
 </pre></div>
 </div>
 </section>
-<section id="installing-kw">
-<h2>Installing kw<a class="headerlink" href="#installing-kw" title="Permalink to this headline">¶</a></h2>
-<p>First, <code class="docutils literal notranslate"><span class="pre">cd</span></code> into the repository you cloned:</p>
+<section id="installing-sworkflow">
+<h2>Installing sworkflow<a class="headerlink" href="#installing-sworkflow" title="Link to this heading">¶</a></h2>
+<p>Change into the repository directory:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd sworkflow</span>
 </pre></div>
 </div>
-<p>Then install <strong>sw</strong>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./setup.sh i</span>
+<p>Install for your user (recommended):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make install</span>
 </pre></div>
 </div>
-<p>After installing <strong>sw</strong>, you should be able to call <code class="docutils literal notranslate"><span class="pre">sw</span></code> directly from the
+<p>Or install system-wide:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo make install</span>
+</pre></div>
+</div>
+<p>After installing, you should be able to call <code class="docutils literal notranslate"><span class="pre">sw</span></code> directly from the
 command line. For example, to display sw’s help message:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sw help</span>
 </pre></div>
 </div>
-<p>After installing, you should check that everything is working as expected. Try
-running:</p>
+<p>Verify the installation:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sw version</span>
 </pre></div>
 </div>
+</section>
+<section id="using-sworkflow">
+<h2>Using sworkflow<a class="headerlink" href="#using-sworkflow" title="Link to this heading">¶</a></h2>
+<p>sworkflow must be run from within a Linux kernel source tree.</p>
+<section id="building-a-kernel">
+<h3>Building a Kernel<a class="headerlink" href="#building-a-kernel" title="Link to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p>Navigate to your kernel source:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd /path/to/kernel-source</span>
+</pre></div>
+</div>
+</li>
+<li><p>Build for a specific device:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sw build &lt;device&gt;</span>
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sw build mainline</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="creating-a-device-configuration">
+<h3>Creating a Device Configuration<a class="headerlink" href="#creating-a-device-configuration" title="Link to this heading">¶</a></h3>
+<p>To create a new device configuration interactively:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sw init</span>
+</pre></div>
+</div>
+<p>This will prompt you for:</p>
+<ul class="simple">
+<li><p>Device name</p></li>
+<li><p>Target architecture</p></li>
+<li><p>Kernel defconfig</p></li>
+<li><p>Cross-compiler paths</p></li>
+<li><p>Clang usage</p></li>
+<li><p>DTBO settings</p></li>
+</ul>
+<p>The configuration is saved as <code class="docutils literal notranslate"><span class="pre">sworkflow.&lt;device&gt;.config</span></code>.</p>
+</section>
+</section>
+<section id="available-commands">
+<h2>Available Commands<a class="headerlink" href="#available-commands" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sw</span> <span class="pre">build</span> <span class="pre">&lt;dev&gt;</span></code></p></td>
+<td><p>Build kernel for device</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sw</span> <span class="pre">doctor</span> <span class="pre">[dev]</span></code></p></td>
+<td><p>Show configs and settings</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sw</span> <span class="pre">init</span></code></p></td>
+<td><p>Generate device configuration</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sw</span> <span class="pre">help</span></code></p></td>
+<td><p>Display help message</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sw</span> <span class="pre">version</span></code></p></td>
+<td><p>Display version</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="getting-help">
+<h2>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading">¶</a></h2>
+<p>View the man page for detailed documentation:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">man sw</span>
+</pre></div>
+</div>
+<p>Or visit the <a class="reference external" href="https://github.com/sworkflow-project/sworkflow">GitHub repository</a>.</p>
 </section>
 </section>
 
@@ -75,9 +157,9 @@ running:</p>
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">sw</a></h1>
+<h1 class="logo"><a href="../index.html">sworkflow</a></h1>
 
 
 
@@ -86,37 +168,42 @@ running:</p>
 
 
 
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../content/installorremove.html">Install or Remove <cite>sw</cite></a></li>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../content/installorremove.html">Install or Remove <code class="docutils literal notranslate"><span class="pre">sw</span></code></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to Setup sworkflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#downloading-sworkflow">Downloading sworkflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-sworkflow">Installing sworkflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-sworkflow">Using sworkflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#available-commands">Available Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-help">Getting Help</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Code documentation:</span></p>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../content/project_structure.html">Project Structure</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Tutorials:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">How to setup sworkflow</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../content/project_structure.html" title="previous chapter">Project Structure</a></li>
+      <li>Previous: <a href="../content/installorremove.html" title="previous chapter">Install or Remove <code class="docutils literal notranslate"><span class="pre">sw</span></code></a></li>
+      <li>Next: <a href="../content/project_structure.html" title="next chapter">Project Structure</a></li>
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
 
 
 
@@ -130,11 +217,11 @@ running:</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2023, Saalim Quadri.
+      &#169;2019-2024, Saalim Quadri.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.0.4</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="../_sources/tutorials/setup.rst.txt"

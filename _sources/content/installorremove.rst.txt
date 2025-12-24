@@ -1,41 +1,95 @@
 ========================
-Install or Remove `sw`
+Install or Remove ``sw``
 ========================
 
-Package Dependencies
---------------------
-We currently support *debian* for automatic dependencies
-installation. These are the current dependencies for *Debian*:
+Dependencies
+------------
 
-   .. include:: ../dependencies/debian.dependencies
+**Required:**
 
-If you want to build the documentation as it is displayed on our website you
-also need this pip package:
+- bash (>= 4.0)
+- python3
+- git
+- make
 
-   .. include:: ../dependencies/pip.dependencies
+**Recommended (for kernel building):**
 
-.. note::
-   Our base support is Ubuntu LTS. i.e., the dependency packages installed in
-   your system should be at least as new as those present in Ubuntu LTS.
+- build-essential
+- bc, flex, bison
+- libssl-dev, libelf-dev
+
+**Optional:**
+
+- clang (for LLVM builds)
+- device-tree-compiler (for DTBO)
+
+On Debian/Ubuntu::
+
+    sudo apt-get install bash python3 git make build-essential bc flex bison libssl-dev libelf-dev
 
 Install
 -------
 
-Manual install
-~~~~~~~~~~~~~~
-In the sw's directory, type::
+From Debian Package (Recommended)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    ./install
+Download the latest ``.deb`` from `Releases <https://github.com/sworkflow-project/sworkflow/releases>`_::
 
-This command will install `sw` and append the following
-lines at the end of your `.bashrc`.::
+    sudo dpkg -i sworkflow_*.deb
+    sudo apt-get install -f  # Install dependencies if needed
 
-    # sw
-    PATH=$HOME/sworkflow/bin:$PATH # sw
+From Source (User Install)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you use another shell (`ksh`, for example), you will need to manually add
-the path to `sw` to `PATH` environment variable.
+Installs to ``~/.local/`` - no root required::
 
-To check if the installations was ok, open another terminal and type::
+    git clone https://github.com/sworkflow-project/sworkflow.git
+    cd sworkflow
+    make install
 
+Ensure ``~/.local/bin`` is in your PATH::
+
+    export PATH="$HOME/.local/bin:$PATH"
+
+Add this line to your ``~/.bashrc`` to make it permanent.
+
+From Source (System-wide)
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Installs to ``/usr/``::
+
+    git clone https://github.com/sworkflow-project/sworkflow.git
+    cd sworkflow
+    sudo make install
+
+Verify Installation
+~~~~~~~~~~~~~~~~~~~
+
+To check if the installation was successful::
+
+    sw version
     sw help
+
+Uninstall
+---------
+
+User Installation
+~~~~~~~~~~~~~~~~~
+
+::
+
+    make uninstall
+
+System Installation
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    sudo make uninstall
+
+Debian Package
+~~~~~~~~~~~~~~
+
+::
+
+    sudo apt-get remove sworkflow
