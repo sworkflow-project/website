@@ -105,14 +105,18 @@ command line. For example, to display sw’s help message:</p>
 </div>
 <p>This will prompt you for:</p>
 <ul class="simple">
-<li><p>Device name</p></li>
-<li><p>Target architecture</p></li>
-<li><p>Kernel defconfig</p></li>
-<li><p>Cross-compiler paths</p></li>
-<li><p>Clang usage</p></li>
+<li><p>Device name and vendor</p></li>
+<li><p>A profile to inherit from, if any</p></li>
+<li><p>Kernel defconfig and image name</p></li>
+<li><p>Module and dist options</p></li>
 <li><p>DTBO settings</p></li>
 </ul>
-<p>The configuration is saved as <code class="docutils literal notranslate"><span class="pre">sworkflow.&lt;device&gt;.config</span></code>.</p>
+<p>Inheriting a profile skips the architecture and toolchain questions,
+because the profile already answers them, leaving a config that states
+only what makes the device different.</p>
+<p>The configuration is saved as <code class="docutils literal notranslate"><span class="pre">sworkflow.&lt;device&gt;.toml</span></code> in the current
+directory and checked against the schema before it is reported as
+created.</p>
 </section>
 </section>
 <section id="available-commands">
@@ -220,7 +224,7 @@ command line. For example, to display sw’s help message:</p>
       &#169;2019-2024, Saalim Quadri.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.0.4</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |

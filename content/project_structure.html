@@ -48,7 +48,10 @@
 │   ├── sw_color.sh       # Terminal colors
 │   └── sw_package.sh     # Packaging (WIP)
 ├── configs/              # Device configurations
+│   ├── base/             # Architecture and toolchain profiles
+│   └── soc/              # SoC profiles
 ├── utils/                # Python utilities
+│   ├── swconfig.py       # TOML config loader
 │   └── mkdtboimg.py      # DTBO image creator
 ├── man/                  # Man pages
 │   └── sw.1              # Main man page
@@ -81,10 +84,18 @@ config files with user input.</p>
 </dd>
 <dt><strong>src/sw_functions.sh</strong></dt><dd><p>Shared utility functions:</p>
 <ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sw_config_search_dirs()</span></code> - Fill the config search path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sw_find_config()</span></code> - Locate a device’s config</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sw_load_config()</span></code> - Load a config into the shell</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">is_kernel_root()</span></code> - Check if directory is a kernel tree</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">is_kernel_image_present()</span></code> - Check for compiled kernel</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">log_info()</span></code>, <code class="docutils literal notranslate"><span class="pre">log_error()</span></code> - Logging functions</p></li>
 </ul>
+</dd>
+<dt><strong>utils/swconfig.py</strong></dt><dd><p>Resolves a TOML device config: follows <code class="docutils literal notranslate"><span class="pre">extends</span></code>, checks it against
+the schema, expands <code class="docutils literal notranslate"><span class="pre">${kernel.root}</span></code> and <code class="docutils literal notranslate"><span class="pre">${env.NAME}</span></code>, and prints
+the result as shell assignments. Config files are parsed as data and
+never sourced, so they cannot run code.</p>
 </dd>
 <dt><strong>src/sw_color.sh</strong></dt><dd><p>Terminal color definitions for output formatting.</p>
 </dd>
@@ -97,6 +108,8 @@ config files with user input.</p>
 <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">sworkflow</span><span class="o">/</span><span class="n">src</span><span class="o">/</span>      <span class="c1"># Source modules</span>
 <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">sworkflow</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span>    <span class="c1"># Python utilities</span>
 <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">sworkflow</span><span class="o">/</span>                <span class="c1"># Device configs</span>
+<span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">sworkflow</span><span class="o">/</span><span class="n">base</span><span class="o">/</span>           <span class="c1"># Architecture and toolchain profiles</span>
+<span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">sworkflow</span><span class="o">/</span><span class="n">soc</span><span class="o">/</span>            <span class="c1"># SoC profiles</span>
 <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">man1</span><span class="o">/</span><span class="n">sw</span><span class="mf">.1</span>       <span class="c1"># Man page</span>
 </pre></div>
 </div>
@@ -105,20 +118,39 @@ config files with user input.</p>
 <span class="o">~/.</span><span class="n">local</span><span class="o">/</span><span class="n">sw</span><span class="o">/</span><span class="n">src</span><span class="o">/</span>               <span class="c1"># Source modules</span>
 <span class="o">~/.</span><span class="n">local</span><span class="o">/</span><span class="n">sw</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span>             <span class="c1"># Python utilities</span>
 <span class="o">~/.</span><span class="n">local</span><span class="o">/</span><span class="n">sw</span><span class="o">/</span><span class="n">configs</span><span class="o">/</span>           <span class="c1"># Device configs</span>
+<span class="o">~/.</span><span class="n">local</span><span class="o">/</span><span class="n">sw</span><span class="o">/</span><span class="n">configs</span><span class="o">/</span><span class="n">base</span><span class="o">/</span>      <span class="c1"># Architecture and toolchain profiles</span>
+<span class="o">~/.</span><span class="n">local</span><span class="o">/</span><span class="n">sw</span><span class="o">/</span><span class="n">configs</span><span class="o">/</span><span class="n">soc</span><span class="o">/</span>       <span class="c1"># SoC profiles</span>
 </pre></div>
 </div>
 </section>
 <section id="configuration-files">
 <h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Link to this heading">¶</a></h2>
-<p>Device configurations are shell scripts named <code class="docutils literal notranslate"><span class="pre">sworkflow.&lt;device&gt;.config</span></code>.</p>
+<p>Device configurations are TOML files named <code class="docutils literal notranslate"><span class="pre">sworkflow.&lt;device&gt;.toml</span></code>.
+They are parsed as data and never executed, so a config file cannot run
+code.</p>
 <p>They are searched in order:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/etc/sworkflow/</span></code> (system)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">~/.local/sw/configs/</span></code> (user)</p></li>
 <li><p>Current directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/etc/sworkflow/</span></code> (system) or <code class="docutils literal notranslate"><span class="pre">~/.local/sw/configs/</span></code> (user)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">./configs/</span></code> subdirectory</p></li>
 </ol>
-<p>See <code class="docutils literal notranslate"><span class="pre">configs/sworkflow_template.config</span></code> for available variables.</p>
+<p>Within a directory a <code class="docutils literal notranslate"><span class="pre">.toml</span></code> config takes precedence over a legacy
+<code class="docutils literal notranslate"><span class="pre">.config</span></code> shell file of the same name. Shell configs are still read for
+compatibility but are deprecated, and <code class="docutils literal notranslate"><span class="pre">sw</span> <span class="pre">init</span></code> only writes TOML.</p>
+<p>A config inherits from one profile with <code class="docutils literal notranslate"><span class="pre">extends</span></code>, resolved against the
+same search path, so a device states only what makes it different:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">schema</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">extends</span> <span class="o">=</span> <span class="s2">"soc/lito"</span>
+
+<span class="p">[</span><span class="n">device</span><span class="p">]</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s2">"gauguin"</span>
+<span class="n">vendor</span> <span class="o">=</span> <span class="s2">"xiaomi"</span>
+
+<span class="p">[</span><span class="n">kernel</span><span class="p">]</span>
+<span class="n">defconfigs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"vendor/lito-perf_defconfig"</span><span class="p">,</span> <span class="s2">"vendor/xiaomi/gauguin.config"</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>See <code class="docutils literal notranslate"><span class="pre">configs/sworkflow_template.toml</span></code> for every key with its default.</p>
 </section>
 </section>
 
@@ -188,7 +220,7 @@ config files with user input.</p>
       &#169;2019-2024, Saalim Quadri.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.0.4</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
